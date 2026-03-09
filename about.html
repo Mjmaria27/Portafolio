@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatica+SC:wght@400;700&family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="about-page">
+    <nav class="menu-bar" id="menu-bar" aria-label="Menú principal">
+        <a href="index.html" class="menu-bar-link">Home</a>
+        <a href="work.html" class="menu-bar-link">My work</a>
+        <a href="contact.html" class="menu-bar-link">Contact</a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+            <img src="imgs/menu_icon.png" alt="Menú" class="menu-toggle-icon">
+        </button>
+    </nav>
+
+    <main class="page page--about about-layout">
+        <section class="about-video-wrap">
+            <video class="about-video" playsinline autoplay muted loop>
+                <source src="imgs/video/Mj.mp4" type="video/mp4">
+            </video>
+        </section>
+        <div class="about-info-circle">
+            <div class="about-info-content">
+                <p>Hola, soy Maria Paula Baca, diseñadora gráfica y UX/UI designer en Ecuador. Me inspira la naturaleza, la simplicidad de la vida y los momentos con las personas que más quiero. </p>
+            </div>
+        </div>
+        <a href="imgs/CV/Resume_Mar%C3%ADaPaulaBaca.pdf" class="about-resume-link" target="_blank" rel="noopener">Resume</a>
+    </main>
+
+    <script>
+        (function () {
+            var bar = document.getElementById('menu-bar');
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                bar.classList.toggle('is-open');
+                bar.setAttribute('aria-expanded', bar.classList.contains('is-open'));
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My work - María Paula Baca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatica+SC:wght@400;700&family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="work-page">
+    <nav class="menu-bar" id="menu-bar" aria-label="Menú principal">
+        <a href="index.html" class="menu-bar-link">Home</a>
+        <a href="about.html" class="menu-bar-link">About me</a>
+        <a href="contact.html" class="menu-bar-link">Contact</a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+            <img src="imgs/menu_icon.png" alt="Menú" class="menu-toggle-icon">
+        </button>
+    </nav>
+
+    <main class="page page--work">
+        <h1 class="work-title">My work</h1>
+
+        <section class="work-projects-wrap">
+            <div class="work-projects-track" id="work-projects-track">
+                <article class="work-project">
+                    <div class="work-project-card">
+                        <div class="work-project-inner">
+                            <div class="work-project-front">
+                                <img src="imgs/Yuyay.png" alt="Proyecto 1" class="work-project-img">
+                            </div>
+                            <div class="work-project-back">
+                                <p class="work-project-desc">YUYAY es un proyecto de diseño tipográfico enfocado en la creación de una fuente original inspirada en la cultura ecuatoriana. Su diseño toma como referencia los bordados y la vestimenta de los pueblos indígenas, combinándolos con formas que evocan las siluetas de las altas montañas de la cordillera de los Andes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="work-project-name">Creatividad</button>
+                </article>
+                <article class="work-project">
+                    <div class="work-project-card">
+                        <div class="work-project-inner">
+                            <div class="work-project-front">
+                                <img src="imgs/Portaretrato.png" alt="Proyecto 2" class="work-project-img">
+                            </div>
+                            <div class="work-project-back">
+                                <p class="work-project-desc">Este proyecto explora el uso de la cromática como elemento principal para resaltar la expresividad visual. A través de tonos intensos y contrastantes aplicados sobre el rostro y las manos, la composición busca enfatizar la relación entre color, textura y emoción, transformando el cuerpo en un lienzo que comunica fuerza, identidad y sensibilidad artística.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="work-project-name">Arte</button>
+                </article>
+                <article class="work-project">
+                    <div class="work-project-card">
+                        <div class="work-project-inner">
+                            <div class="work-project-front">
+                                <img src="imgs/Papel%20regalo.png" alt="Proyecto 3" class="work-project-img">
+                            </div>
+                            <div class="work-project-back">
+                                <p class="work-project-desc">Este proyecto consiste en una serie de bocetos de objetos con un significado personal. A través del dibujo lineal, representé elementos que evocan la memoria de mi abuelita: el oso de peluche como símbolo de cariño y compañía, la taza de té que remite a momentos de calma y conversación, y el reloj como metáfora del tiempo compartido y de los recuerdos que permanecen. La composición busca transformar objetos cotidianos en símbolos de afecto, memoria y conexión emocional.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="work-project-name">Dibujo</button>
+                </article>
+                <article class="work-project">
+                    <div class="work-project-card">
+                        <div class="work-project-inner">
+                            <div class="work-project-front">
+                                <img src="imgs/Proyecto%20foto%202.png" alt="Proyecto 4" class="work-project-img">
+                            </div>
+                            <div class="work-project-back">
+                                <p class="work-project-desc">Este proyecto consiste en una serie fotográfica que explora las recetas familiares transmitidas de generación en generación. A través de la imagen, se busca resaltar la cocina como un espacio de memoria, tradición y conexión, donde los sabores y las prácticas culinarias se convierten en un legado cultural y afectivo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="work-project-name">Fotografía</button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var bar = document.getElementById('menu-bar');
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                bar.classList.toggle('is-open');
+                bar.setAttribute('aria-expanded', bar.classList.contains('is-open'));
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            var track = document.getElementById('work-projects-track');
+            if (!track) return;
+            var wrap = track.parentElement;
+            var posX = 0;
+            var startX = 0;
+            var maxLeft = 0;
+            var maxRight = 0;
+
+            function updateLimits() {
+                var trackWidth = track.scrollWidth;
+                var wrapWidth = wrap.offsetWidth;
+                maxRight = Math.min(0, wrapWidth * 0.3);
+                maxLeft = -Math.max(0, trackWidth - wrapWidth);
+            }
+
+            function applyPos() {
+                if (posX > maxRight) posX = maxRight;
+                if (posX < maxLeft) posX = maxLeft;
+                track.style.transform = 'translate3d(' + posX + 'px, 0, 0)';
+            }
+
+            var rafId = null;
+            function onDragMove(e) {
+                posX = e.clientX - startX;
+                if (rafId === null) {
+                    rafId = requestAnimationFrame(function () {
+                        applyPos();
+                        rafId = null;
+                    });
+                }
+            }
+
+            // Clic en el nombre = voltear la tarjeta
+            track.querySelectorAll('.work-project-name').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var card = btn.previousElementSibling;
+                    if (card) card.classList.toggle('is-flipped');
+                });
+            });
+
+            // Arrastrar solo si el mousedown NO fue en un proyecto (ni tarjeta ni nombre)
+            wrap.addEventListener('mousedown', function (e) {
+                if (e.button !== 0) return;
+                if (e.target.closest('.work-project')) return;
+                e.preventDefault();
+                startX = e.clientX - posX;
+                wrap._dragging = true;
+                track.classList.add('is-dragging');
+                document.addEventListener('mousemove', onDragMove);
+            });
+
+            document.addEventListener('mouseup', function () {
+                if (wrap._dragging) {
+                    wrap._dragging = false;
+                    track.classList.remove('is-dragging');
+                    document.removeEventListener('mousemove', onDragMove);
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                updateLimits();
+                applyPos();
+            });
+
+            updateLimits();
+        })();
+    </script>
+</body>
+</html>
+
